@@ -72,34 +72,29 @@ let portals = [
     destination: 200,
   },
 ];
-function quickesetPath(portals) {
+function quickestPath(portals) {
   let amountPath = 0;
   let currentPosition = 1;
   while (currentPosition < 200) {
+    let maxPosition = currentPosition + 11;
     for (let i = 0; i < portals.length; ++i) {
       if (
         portals[i].location >= currentPosition + 1 &&
         portals[i].location <= currentPosition + 11
       ) {
-        if (portals[i].destination <= portals[i].location) {
-          currentPosition += 11;
-        } else {
-          currentPosition = portals[i].destination;
+        if (maxPosition < portals[i].destination) {
+          maxPosition = portals[i].destination;
         }
-        amountPath++;
-        break;
-      } else {
-        currentPosition += 11;
-        amountPath++;
-        break;
       }
+      console.log('maxPosition:', maxPosition);
+      console.log('Portal Location:', portals[i]);
     }
-    console.log(
-      "Current Position:", currentPosition, "Amount of Path:", amountPath
-    );
+    currentPosition = maxPosition;
+    amountPath++;
+    console.log('Current Position:', currentPosition);
   }
 
   return amountPath;
 }
-let result = quickesetPath(portals);
-console.log("Quickest Path: ".concat(result));
+let result = quickestPath(portals);
+console.log("Quickest Path: ", result);
